@@ -162,6 +162,7 @@ void    *coder_routine(void *arg);
 int     compile(t_coder *coder);
 void    debug(t_coder *coder);
 void    refactor(t_coder *coder);
+void    *monitor_routine(void *arg);
 
 #endif
 

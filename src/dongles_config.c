@@ -16,7 +16,14 @@ static void set_deadline(t_coder *coder, t_edf *info)
  }
 
 // dongle->release = get_time_ms() le moment où le dongle a été libéré
- static int wait_dongle(t_coder *coder, t_dongle *dongle)
+// 1. condition OK → return(0)  ← prendre le dongle
+//         ↓
+// 2. condition pas OK → unlock + usleep(1000)
+//         ↓
+// 3. simulation_running == 0 → return(1)  ← sortir proprement
+//         ↓
+// 4. sinon → re-lock + revérifier
+static int wait_dongle(t_coder *coder, t_dongle *dongle)
  {
     while(1)
     {

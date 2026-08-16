@@ -1,3 +1,4 @@
+
 #include "header.h"
 
 // coder_routine()
@@ -16,7 +17,9 @@ void *coder_routine(void *arg)
 {
     t_coder *coder;
     coder =(t_coder *)arg;
-    printf("Coder %d started\n", coder->id);
+    // printf("Coder %d started\n", coder->id);
+    if (coder->id % 2 != 0)
+        usleep(1000);
     while(coder->done == 0)
     {
         pthread_mutex_lock(&coder->sim->pause);
@@ -130,7 +133,6 @@ void    refactor(t_coder *coder)
         == coder->sim->config.nbr_of_compiles_required)
         coder->done = 1;
     pthread_mutex_unlock(&coder->sim->pause);
-
 }
 // void compile(t_coder *coder)
 // {
