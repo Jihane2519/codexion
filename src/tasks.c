@@ -6,7 +6,7 @@
 /*   By: jbounou <jbounou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/16 21:08:12 by jbounou           #+#    #+#             */
-/*   Updated: 2026/08/16 21:14:25 by jbounou          ###   ########.fr       */
+/*   Updated: 2026/08/16 23:53:15 by jbounou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,13 @@ void	debug(t_coder *coder)
 {
 	long	debug_start;
 
+	pthread_mutex_lock(&coder->sim->pause);
+	if (coder->sim->simulation_running == 0)
+	{
+		pthread_mutex_unlock(&coder->sim->pause);
+		return ;
+	}
+	pthread_mutex_unlock(&coder->sim->pause);
 	debug_start = get_time_ms();
 	pthread_mutex_lock(&coder->sim->pause_print);
 	printf("%ld %d is debugging\n",
@@ -74,6 +81,13 @@ void	refactor(t_coder *coder)
 {
 	long	refactor_start;
 
+	pthread_mutex_lock(&coder->sim->pause);
+	if (coder->sim->simulation_running == 0)
+	{
+		pthread_mutex_unlock(&coder->sim->pause);
+		return ;
+	}
+	pthread_mutex_unlock(&coder->sim->pause);
 	refactor_start = get_time_ms();
 	pthread_mutex_lock(&coder->sim->pause_print);
 	printf("%ld %d is refactoring\n",
