@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jbounou <jbounou@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/08/16 21:56:10 by jbounou           #+#    #+#             */
+/*   Updated: 2026/08/16 22:00:20 by jbounou          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "header.h"
 
 int	main(int argc, char **argv)
@@ -7,9 +19,8 @@ int	main(int argc, char **argv)
 	pthread_t		monitor;
 	int				i;
 
-	if (parse_args(argc, argv, &config))
-		return (1);
-	if (init_simulation(&sim, &config))
+	if (parse_args(argc, argv, &config)
+		|| init_simulation(&sim, &config))
 		return (1);
 	pthread_create(&monitor, NULL, monitor_routine, &sim);
 	i = 0;
