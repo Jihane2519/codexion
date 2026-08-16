@@ -81,10 +81,12 @@
 #ifndef HEADER_H
 # define HEADER_H
 
-# include <pthread.h>
+#include <pthread.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <unistd.h>
 #include <string.h>
+#include <sys/time.h>
 
 typedef struct s_simulation t_simulation;
 typedef enum e_scheduler
@@ -150,6 +152,16 @@ int     parse_args(int argc, char **argv, t_config *config);
 int     init_simulation(t_simulation *sim, t_config *config);
 void    cleanup_simulation(t_simulation *sim);
 void    *coder_routine(void *arg);
+int    take_dongle(t_coder *coder, t_dongle *dongle);
+void    release_dongle(t_dongle *dongle);
+long    get_time_ms(void);
+void    insert_heap(t_dongle *dongle, t_edf info);
+void    insert_down(t_dongle *dongle);
+t_edf   pop_heap(t_dongle *dongle);
+void    *coder_routine(void *arg);
+int     compile(t_coder *coder);
+void    debug(t_coder *coder);
+void    refactor(t_coder *coder);
 
 #endif
 

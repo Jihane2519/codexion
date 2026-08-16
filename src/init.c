@@ -6,7 +6,7 @@ int init_simulation(t_simulation *sim, t_config *config)
 
     sim->config = *config;
     sim->simulation_running = 1;
-    sim->start_time = 0;
+    sim->start_time = get_time_ms();
 
     pthread_mutex_init(&sim->pause_print, NULL);
     pthread_mutex_init(&sim->pause, NULL);

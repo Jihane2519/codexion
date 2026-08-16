@@ -1,16 +1,26 @@
 NAME = codexion
+
 CC = cc
 CFLAGS = -Wall -Wextra -Werror -pthread
+
 SRC = src/main.c \
-	src/parser.c \
-	src/init.c \
-	src/coder.c
+      src/parser.c \
+      src/init.c \
+      src/coder.c \
+      src/dongles_config.c \
+      src/heap.c \
+	  src/time.c
+
 OBJ = $(SRC:.c=.o)
+
 all: $(NAME)
+
 $(NAME): $(OBJ)
 	$(CC) $(CFLAGS) $(OBJ) -o $(NAME)
+
 %.o: %.c
 	$(CC) $(CFLAGS) -c $< -o $@
+
 clean:
 	rm -f $(OBJ)
 
@@ -19,3 +29,4 @@ fclean: clean
 
 re: fclean all
 
+.PHONY: all clean fclean re
